@@ -18,6 +18,12 @@
     </div>
 </form>
 
+<div>
+    <ul>
+        <li th:each="user : ${users}" th:text="${user}"></li>
+    </ul>
+</div>
+
 <div th:replace="/session::session"></div>
 
 

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import services.Facade;
 
+import java.util.List;
+
 @Controller
 @SessionAttributes("courant")
 @RequestMapping("/")
@@ -23,6 +25,7 @@ public class Exercice1Controller {
     public String toLogin(Model model) {
         //ici on doit renvoyer un User du fait traitement avec modelAttribute et path côté jsp
         model.addAttribute(new UserDto());
+        model.addAttribute("users", facade.getUersInscrits());
         return("login");
     }
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Service
 public class Facade {
@@ -24,7 +25,6 @@ public class Facade {
     }
     */
 
-
     public boolean checkLP(String login,String password) {
         // On va maintenant chercher l'utilisateur dans la BD à partir du login
         User user=em.find(User.class,login);
@@ -35,5 +35,8 @@ public class Facade {
         }
    }
 
-
+   public List<User> getUersInscrits() {
+        List<User> list = (List<User>) em.createQuery("SELECT login FROM User u").getResultList();
+        return list;
+   }
 }
