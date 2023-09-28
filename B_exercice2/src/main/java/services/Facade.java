@@ -2,8 +2,10 @@ package services;
 
 import entities.User;
 import exceptions.UserAllreadyExistsException;
+import exceptions.UserDoesNotExistException;
 import org.springframework.stereotype.Service;
 
+import javax.ejb.Remove;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -48,4 +50,14 @@ public class Facade {
         return user;
    }
 
+   @Remove
+   public void deleteUser(String login) throws UserDoesNotExistException {
+        User user = em.find(User.class, login);
+        if (user != null) {
+            em.remove(user);
+        }
+        else {
+            throw new UserDoesNotExistException();
+        }
+   }
 }
