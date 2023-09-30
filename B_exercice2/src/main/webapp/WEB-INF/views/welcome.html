@@ -11,6 +11,11 @@ Bienvenue, <span th:text="${username}"/>.
     <button type="submit">se déconnecter</button>
 </form>
 
+<form th:action="@{/delete}">
+    <button type="submit" />supprimer</button>
+</form>
+<div th:if="${errorMessage}" style="color: red;" th:text="${errorMessage}"></div>
+
 <form th:action="@{/simplecheck}">
     <button type="submit">Vérifier le login en session (en trace de serveur)</button>
 </form>

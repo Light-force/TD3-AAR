@@ -2,6 +2,7 @@ package controllers;
 
 import dtos.UserDto;
 import exceptions.UserAllreadyExistsException;
+import exceptions.UserDoesNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +18,11 @@ import services.Facade;
 @Controller
 @SessionAttributes("courant")
 @RequestMapping("/")
-public class Exemple2Controller {
+public class Exercice2Controller {
+
     @Autowired
     private Facade facade;
+
     @RequestMapping("")
     public String toLogin(Model model) {
         //ici on doit renvoyer un User du fait traitement avec modelAttribute et path côté jsp
@@ -72,4 +75,19 @@ public class Exemple2Controller {
         model.addAttribute(new UserDto());
         return "login";
     }
+
+    @RequestMapping("delete")
+    public String delete(@SessionAttribute String courant, Model model, SessionStatus status){
+        try {
+            facade.deleteUser(courant);
+        } catch (UserDoesNotExistException e) {
+            model.addAttribute("errorMessage", "Ce login n'existe pas.");
+            return "welcome";
+        }
+        status.setComplete();
+        model.addAttribute("courant", null);
+        model.addAttribute(new UserDto());
+        return "login";
+    }
+
 }

@@ -50,7 +50,7 @@ public class Facade {
         return user;
    }
 
-   @Remove
+   @Transactional
    public void deleteUser(String login) throws UserDoesNotExistException {
         User user = em.find(User.class, login);
         if (user != null) {
